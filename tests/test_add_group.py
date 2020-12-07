@@ -1,7 +1,7 @@
 import unittest
 
 from selenium import webdriver
-from group import Group
+from models.group import Group
 
 
 class TestAddGroup(unittest.TestCase):

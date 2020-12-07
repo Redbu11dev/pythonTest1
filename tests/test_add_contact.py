@@ -4,6 +4,7 @@ from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
+from models.contact import Contact
 import unittest
 
 
@@ -17,92 +18,123 @@ class TestAddContact(unittest.TestCase):
         self.open_home_page(wd)
         self.login(wd, "admin", "secret")
         self.open_new_contact_page(wd)
+        image_path = os.path.join(os.path.dirname(__file__), '../images/grapefruit-slice-332-332.jpg').replace("/", "\\")
+        contact1 = Contact("First name",
+                           "Middle name",
+                           "Last name",
+                           "Nickname",
+                           image_path,
+                           "Title",
+                           "Company",
+                           "Address",
+                           "222-22-22",
+                           "88002000600",
+                           "200-00-00",
+                           "211-11-11",
+                           "email1@mail.com",
+                           "email2@mail.com",
+                           "email3@mail.com",
+                           "www.google.com",
+                           "1",
+                           "January",
+                           "1990",
+                           "1",
+                           "February",
+                           "1867",
+                           "",  # "group1"
+                           "addr2",
+                           "Home something",
+                           "some notes"
+                           )
+        self.create_group(wd, contact1)
+        # return to home page
+        wd.find_element_by_link_text("home").click()
+        # check if contact is the first element in the table
+        self.assertEqual(contact1.last_name,
+                         wd.find_element_by_xpath("//table[@id='maintable']/tbody/tr[2]/td[2]").text)
+
+    def create_group(self, wd, contact):
         wd.find_element_by_name("firstname").click()
         wd.find_element_by_name("firstname").clear()
-        wd.find_element_by_name("firstname").send_keys("First name")
+        wd.find_element_by_name("firstname").send_keys(contact.first_name)
         wd.find_element_by_name("middlename").click()
         wd.find_element_by_name("middlename").clear()
-        wd.find_element_by_name("middlename").send_keys("Middle name")
+        wd.find_element_by_name("middlename").send_keys(contact.middle_name)
         wd.find_element_by_name("lastname").click()
         wd.find_element_by_name("lastname").clear()
-        wd.find_element_by_name("lastname").send_keys("Last name")
+        wd.find_element_by_name("lastname").send_keys(contact.last_name)
         wd.find_element_by_name("nickname").click()
         wd.find_element_by_name("nickname").clear()
-        wd.find_element_by_name("nickname").send_keys("Nickname")
-        # wd.find_element_by_name("photo").click()
-        # wd.find_element_by_name("photo").clear()
-        wd.find_element_by_name("photo").send_keys(
-            os.path.join(os.path.dirname(__file__),
-                         'images\\grapefruit-slice-332-332.jpg').replace("/", "\\")
-        )
-        # wd.find_element_by_name("photo").send_keys(os.path.join(os.path.dirname(__file__),
-        #                                                         '1.jpg').replace("/", "\\"))
+        wd.find_element_by_name("nickname").send_keys(contact.nickname)
+        wd.find_element_by_name("photo").send_keys(contact.photo_path)
         wd.find_element_by_name("title").click()
         wd.find_element_by_name("title").clear()
-        wd.find_element_by_name("title").send_keys("Title")
+        wd.find_element_by_name("title").send_keys(contact.title)
         wd.find_element_by_name("company").click()
         wd.find_element_by_name("company").clear()
-        wd.find_element_by_name("company").send_keys("Company")
+        wd.find_element_by_name("company").send_keys(contact.company)
         wd.find_element_by_name("address").click()
         wd.find_element_by_name("address").clear()
-        wd.find_element_by_name("address").send_keys("Address")
+        wd.find_element_by_name("address").send_keys(contact.address)
         wd.find_element_by_name("home").click()
         wd.find_element_by_name("home").clear()
-        wd.find_element_by_name("home").send_keys("222-22-22")
+        wd.find_element_by_name("home").send_keys(contact.home_phone_number)
         wd.find_element_by_name("mobile").click()
         wd.find_element_by_name("mobile").clear()
-        wd.find_element_by_name("mobile").send_keys("88002000600")
+        wd.find_element_by_name("mobile").send_keys(contact.mobile_phone_number)
         wd.find_element_by_name("work").click()
         wd.find_element_by_name("work").clear()
-        wd.find_element_by_name("work").send_keys("200-00-00")
+        wd.find_element_by_name("work").send_keys(contact.work_phone_number)
         wd.find_element_by_name("fax").click()
         wd.find_element_by_name("fax").clear()
-        wd.find_element_by_name("fax").send_keys("211-11-11")
+        wd.find_element_by_name("fax").send_keys(contact.fax_number)
         wd.find_element_by_name("email").click()
         wd.find_element_by_name("email").clear()
-        wd.find_element_by_name("email").send_keys("email1@mail.com")
+        wd.find_element_by_name("email").send_keys(contact.email_1)
         wd.find_element_by_name("email2").click()
         wd.find_element_by_name("email2").clear()
-        wd.find_element_by_name("email2").send_keys("email1@mail.com")
+        wd.find_element_by_name("email2").send_keys(contact.email_2)
         wd.find_element_by_name("email3").click()
         wd.find_element_by_name("email3").clear()
-        wd.find_element_by_name("email3").send_keys("email1@mail.com")
+        wd.find_element_by_name("email3").send_keys(contact.email_3)
         wd.find_element_by_name("homepage").click()
         wd.find_element_by_name("homepage").clear()
-        wd.find_element_by_name("homepage").send_keys("www.google.com")
+        wd.find_element_by_name("homepage").send_keys(contact.homepage)
         wd.find_element_by_name("bday").click()
-        Select(wd.find_element_by_name("bday")).select_by_visible_text("1")
+        Select(wd.find_element_by_name("bday")).select_by_visible_text(contact.birthday_day)
         wd.find_element_by_name("bday").click()
         wd.find_element_by_name("bmonth").click()
-        Select(wd.find_element_by_name("bmonth")).select_by_visible_text("January")
+        Select(wd.find_element_by_name("bmonth")).select_by_visible_text(contact.birthday_month)
         wd.find_element_by_name("bmonth").click()
         wd.find_element_by_name("byear").click()
         wd.find_element_by_name("byear").clear()
-        wd.find_element_by_name("byear").send_keys("1990")
+        wd.find_element_by_name("byear").send_keys(contact.birthday_year)
         wd.find_element_by_name("aday").click()
-        Select(wd.find_element_by_name("aday")).select_by_visible_text("1")
+        Select(wd.find_element_by_name("aday")).select_by_visible_text(contact.anniversary_day)
         wd.find_element_by_name("aday").click()
         wd.find_element_by_name("amonth").click()
-        Select(wd.find_element_by_name("amonth")).select_by_visible_text("February")
+        Select(wd.find_element_by_name("amonth")).select_by_visible_text(contact.anniversary_month)
         wd.find_element_by_name("amonth").click()
         wd.find_element_by_name("ayear").click()
         wd.find_element_by_name("ayear").clear()
-        wd.find_element_by_name("ayear").send_keys("1867")
-        # wd.find_element_by_name("new_group").click()
-        # Select(wd.find_element_by_name("new_group")).select_by_visible_text("group1")
-        # wd.find_element_by_name("new_group").click()
+        wd.find_element_by_name("ayear").send_keys(contact.anniversary_year)
+        # add to group if specified
+        if contact.group_name:
+            wd.find_element_by_name("new_group").click()
+            Select(wd.find_element_by_name("new_group")).select_by_visible_text(contact.group_name)
+            wd.find_element_by_name("new_group").click()
+
         wd.find_element_by_name("address2").click()
         wd.find_element_by_name("address2").clear()
-        wd.find_element_by_name("address2").send_keys("addr2")
+        wd.find_element_by_name("address2").send_keys(contact.address_2)
         wd.find_element_by_name("phone2").click()
         wd.find_element_by_name("phone2").clear()
-        wd.find_element_by_name("phone2").send_keys("Home something")
+        wd.find_element_by_name("phone2").send_keys(contact.phone_2)
         wd.find_element_by_name("notes").click()
         wd.find_element_by_name("notes").clear()
-        wd.find_element_by_name("notes").send_keys("some notes")
+        wd.find_element_by_name("notes").send_keys(contact.notes)
+        # click "submit"
         wd.find_element_by_xpath("(//input[@name='submit'])[2]").click()
-        wd.find_element_by_link_text("home").click()
-        self.assertEqual("Last name", wd.find_element_by_xpath("//table[@id='maintable']/tbody/tr[2]/td[2]").text)
 
     def open_new_contact_page(self, wd):
         wd.find_element_by_link_text("add new").click()
