@@ -31,8 +31,12 @@ class TestAddContact(unittest.TestCase):
         wd.find_element_by_name("nickname").send_keys("Nickname")
         # wd.find_element_by_name("photo").click()
         # wd.find_element_by_name("photo").clear()
-        wd.find_element_by_name("photo").send_keys(os.path.join(os.path.dirname(__file__),
-                                                                'images\\grapefruit-slice-332-332.jpg'))
+        wd.find_element_by_name("photo").send_keys(
+            os.path.join(os.path.dirname(__file__),
+                         'images\\grapefruit-slice-332-332.jpg').replace("/", "\\")
+        )
+        # wd.find_element_by_name("photo").send_keys(os.path.join(os.path.dirname(__file__),
+        #                                                         '1.jpg').replace("/", "\\"))
         wd.find_element_by_name("title").click()
         wd.find_element_by_name("title").clear()
         wd.find_element_by_name("title").send_keys("Title")
@@ -84,9 +88,9 @@ class TestAddContact(unittest.TestCase):
         wd.find_element_by_name("ayear").click()
         wd.find_element_by_name("ayear").clear()
         wd.find_element_by_name("ayear").send_keys("1867")
-        wd.find_element_by_name("new_group").click()
-        Select(wd.find_element_by_name("new_group")).select_by_visible_text("group1")
-        wd.find_element_by_name("new_group").click()
+        # wd.find_element_by_name("new_group").click()
+        # Select(wd.find_element_by_name("new_group")).select_by_visible_text("group1")
+        # wd.find_element_by_name("new_group").click()
         wd.find_element_by_name("address2").click()
         wd.find_element_by_name("address2").clear()
         wd.find_element_by_name("address2").send_keys("addr2")
