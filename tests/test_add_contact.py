@@ -1,8 +1,11 @@
 import os
 from selenium import webdriver
+from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import Select
 from models.contact import Contact
 import unittest
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 
 class TestAddContact(unittest.TestCase):
@@ -18,7 +21,7 @@ class TestAddContact(unittest.TestCase):
         image_path = os.path.join(os.path.dirname(__file__), '../images/grapefruit-slice-332-332.jpg').replace("/", "\\")
         contact1 = Contact("First name",
                            "Middle name",
-                           "Last name",
+                           "Ivanov",
                            "Nickname",
                            image_path,
                            "Title",
@@ -46,9 +49,12 @@ class TestAddContact(unittest.TestCase):
         self.create_group(wd, contact1)
         # return to home page
         wd.find_element_by_link_text("home").click()
-        # check if contact is the first element in the table
-        self.assertEqual(contact1.last_name,
-                         wd.find_element_by_xpath("//table[@id='maintable']/tbody/tr[2]/td[2]").text)
+        # check if contact is in the table
+        table_elements = wd.find_elements_by_xpath(
+            f"//table[@id='maintable']/tbody/tr/td[contains(text(),'{contact1.last_name}')]")
+        self.assertGreater(len(table_elements), 0)
+        # for element in table_elements:
+        #     print(f"{element.text}\n")
 
     def create_group(self, wd, contact):
         wd.find_element_by_name("firstname").click()
