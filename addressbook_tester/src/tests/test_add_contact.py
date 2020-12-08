@@ -42,7 +42,7 @@ def test_add_contact(app):
                        "Home something",
                        "some notes"
                        )
-    app.create_contact(contact1)
-    app.return_to_contacts_page()
-    app.verify_account_created(contact1)
+    app.contact.create_contact(contact1)
+    app.contact.return_to_contacts_page()
+    app.contact.verify_account_created(contact1)
     app.session.logout()
