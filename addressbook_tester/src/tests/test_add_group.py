@@ -1,7 +1,7 @@
 import pytest
 
-from addressbook_tester.application import Application
-from addressbook_tester.models.group import Group
+from addressbook_tester.src.application import Application
+from addressbook_tester.src.models.group import Group
 
 
 @pytest.fixture

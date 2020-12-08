@@ -1,8 +1,8 @@
 import os
 import pytest
 
-from addressbook_tester.application import Application
-from addressbook_tester.models.contact import Contact
+from addressbook_tester.src.application import Application
+from addressbook_tester.src.models.contact import Contact
 
 
 @pytest.fixture

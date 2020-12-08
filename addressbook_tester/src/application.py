@@ -1,8 +1,8 @@
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 
-from addressbook_tester.helpers.group_helper import GroupHelper
-from addressbook_tester.helpers.session_helper import SessionHelper
+from addressbook_tester.src.helpers.group_helper import GroupHelper
+from addressbook_tester.src.helpers.session_helper import SessionHelper
 
 
 class Application:
