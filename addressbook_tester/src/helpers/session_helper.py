@@ -1,3 +1,8 @@
+import time
+
+from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.common.by import By
+
 
 class SessionHelper:
     def __init__(self, app):
@@ -6,6 +11,12 @@ class SessionHelper:
     def logout(self):
         wd = self.app.wd
         wd.find_element_by_link_text("Logout").click()
+        for i in range(60):
+            if wd.find_element(By.NAME, "LoginForm"):
+                break
+            time.sleep(1)
+        else:
+            wd.fail(self, "time out")
 
     def login(self, username, password):
         wd = self.app.wd

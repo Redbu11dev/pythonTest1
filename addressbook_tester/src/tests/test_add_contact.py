@@ -1,15 +1,5 @@
 import os
-import pytest
-
-from addressbook_tester.src.application import Application
 from addressbook_tester.src.models.contact import Contact
-
-
-@pytest.fixture
-def app(request):
-    fixture = Application()
-    request.addfinalizer(fixture.destroy)
-    return fixture
 
 
 def test_add_contact(app):
