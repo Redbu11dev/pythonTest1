@@ -1,8 +1,8 @@
 import os
 import pytest
 
-from application import Application
-from models.contact import Contact
+from addressbook_tester.application import Application
+from addressbook_tester.models.contact import Contact
 
 
 @pytest.fixture
@@ -13,8 +13,8 @@ def app(request):
 
 
 def test_add_contact(app):
-    app.login("admin", "secret")
-    image_path = os.path.join(os.path.dirname(__file__), '../images/grapefruit-slice-332-332.jpg').replace("/", "\\")
+    app.session.login("admin", "secret")
+    image_path = os.path.join(os.path.dirname(__file__), '../resources/images/grapefruit-slice-332-332.jpg').replace("/", "\\")
     contact1 = Contact("First name",
                        "Middle name",
                        "Ivanov",
@@ -45,4 +45,4 @@ def test_add_contact(app):
     app.create_contact(contact1)
     app.return_to_contacts_page()
     app.verify_account_created(contact1)
-    app.logout()
+    app.session.logout()
