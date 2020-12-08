@@ -11,8 +11,7 @@ class TestAddContact(unittest.TestCase):
         self.wd.implicitly_wait(30)
 
     def test_add_contact(self):
-        wd = self.wd
-        self.login(wd, "admin", "secret")
+        self.login("admin", "secret")
         image_path = os.path.join(os.path.dirname(__file__), '../images/grapefruit-slice-332-332.jpg').replace("/", "\\")
         contact1 = Contact("First name",
                            "Middle name",
@@ -41,13 +40,14 @@ class TestAddContact(unittest.TestCase):
                            "Home something",
                            "some notes"
                            )
-        self.create_contact(wd, contact1)
-        self.return_to_contacts_page(wd)
-        self.verify_account_created(wd, contact1)
-        self.logout(wd)
+        self.create_contact(contact1)
+        self.return_to_contacts_page()
+        self.verify_account_created(contact1)
+        self.logout()
 
-    def create_contact(self, wd, contact):
-        self.open_new_contact_page(wd)
+    def create_contact(self, contact):
+        wd = self.wd
+        self.open_new_contact_page()
         wd.find_element_by_name("firstname").click()
         wd.find_element_by_name("firstname").clear()
         wd.find_element_by_name("firstname").send_keys(contact.first_name)
@@ -130,11 +130,13 @@ class TestAddContact(unittest.TestCase):
         # click "submit"
         wd.find_element_by_xpath("(//input[@name='submit'])[2]").click()
 
-    def return_to_contacts_page(self, wd):
+    def return_to_contacts_page(self):
+        wd = self.wd
         # return to home page
         wd.find_element_by_link_text("home").click()
 
-    def verify_account_created(self, wd, contact):
+    def verify_account_created(self, contact):
+        wd = self.wd
         # check if contact is in the table
         table_elements = wd.find_elements_by_xpath(
             f"//table[@id='maintable']/tbody/tr/td[contains(text(),'{contact.last_name}')]")
@@ -142,11 +144,13 @@ class TestAddContact(unittest.TestCase):
         # for element in table_elements:
         #     print(f"{element.text}\n")
 
-    def open_new_contact_page(self, wd):
+    def open_new_contact_page(self):
+        wd = self.wd
         wd.find_element_by_link_text("add new").click()
 
-    def login(self, wd, username, password):
-        self.open_home_page(wd)
+    def login(self, username, password):
+        wd = self.wd
+        self.open_home_page()
         wd.find_element_by_name("user").click()
         wd.find_element_by_name("user").clear()
         wd.find_element_by_name("user").send_keys(username)
@@ -155,11 +159,13 @@ class TestAddContact(unittest.TestCase):
         wd.find_element_by_name("pass").send_keys(password)
         wd.find_element_by_xpath("//input[@value='Login']").click()
 
-    def logout(self, wd):
+    def logout(self):
+        wd = self.wd
         wd.find_element_by_link_text("Logout").click()
 
-    def open_home_page(self, driver):
-        driver.get("http://localhost/addressbook")
+    def open_home_page(self):
+        wd = self.wd
+        wd.get("http://localhost/addressbook")
 
     def tearDown(self):
         self.wd.quit()
