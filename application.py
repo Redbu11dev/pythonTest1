@@ -143,12 +143,12 @@ class Application:
         # return to home page
         wd.find_element_by_link_text("home").click()
 
-    def verify_account_created(self, test_runner, contact):
+    def verify_account_created(self, contact):
         wd = self.wd
         # check if contact is in the table
         table_elements = wd.find_elements_by_xpath(
             f"//table[@id='maintable']/tbody/tr/td[contains(text(),'{contact.last_name}')]")
-        test_runner.assertGreater(len(table_elements), 0)
+        assert len(table_elements) > 0
         # for element in table_elements:
         #     print(f"{element.text}\n")
 
