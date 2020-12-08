@@ -1,3 +1,2 @@
-#/venv/
-/tests/.pytest_cache
-/tests/.geckodriver.log
+/src/tests/.pytest_cache/
+/src/tests/geckodriver.log
