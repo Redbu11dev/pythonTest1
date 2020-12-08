@@ -11,7 +11,7 @@ class SessionHelper:
     def logout(self):
         wd = self.app.wd
         wd.find_element_by_link_text("Logout").click()
-        for i in range(60):
+        for i in range(10):
             if wd.find_element(By.NAME, "LoginForm"):
                 break
             time.sleep(1)
