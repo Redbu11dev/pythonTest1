@@ -26,11 +26,11 @@ def test_add_contact(app):
                        "1",
                        "February",
                        "1867",
-                       "",  # "group1"
+                       None,  # "group1"
                        "addr2",
                        "Home something",
                        "some notes"
                        )
-    app.contact.create_contact(contact1)
+    app.contact.create(contact1)
     app.contact.return_to_contacts_page()
     app.contact.verify_account_created(contact1)
