@@ -1,3 +1,9 @@
+# type checking/avoiding cyclic imports solution - https://stackoverflow.com/a/39757388
+from __future__ import annotations
+from typing import TYPE_CHECKING
+if TYPE_CHECKING:
+    from addressbook_tester.src.application import Application
+
 import time
 
 from selenium.common.exceptions import NoSuchElementException
@@ -5,7 +11,7 @@ from selenium.webdriver.common.by import By
 
 
 class SessionHelper:
-    def __init__(self, app):
+    def __init__(self, app: Application):
         self.app = app
 
     def ensure_logout(self):

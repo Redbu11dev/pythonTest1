@@ -1,8 +1,14 @@
+# type checking/avoiding cyclic imports solution - https://stackoverflow.com/a/39757388
+from __future__ import annotations
+from typing import TYPE_CHECKING
+if TYPE_CHECKING:
+    from addressbook_tester.src.application import Application
+
 from selenium.webdriver.support.ui import Select
 
 
 class ContactHelper:
-    def __init__(self, app):
+    def __init__(self, app: Application):
         self.app = app
 
     def create_contact(self, contact):
