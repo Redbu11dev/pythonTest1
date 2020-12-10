@@ -25,4 +25,5 @@ class Application:
 
     def open_home_page(self):
         wd = self.wd
-        wd.get("http://localhost/addressbook/")
+        if not wd.current_url.endswith("/edit.php"):
+            wd.get("http://localhost/addressbook/")

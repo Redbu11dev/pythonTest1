@@ -78,7 +78,8 @@ class ContactHelper:
 
     def open_new_contact_page(self):
         wd = self.app.wd
-        wd.find_element_by_link_text("add new").click()
+        if not wd.current_url.endswith("/edit.php"):
+            wd.find_element_by_link_text("add new").click()
 
     def delete_first_contact(self):
         wd = self.app.wd
