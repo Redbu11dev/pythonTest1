@@ -3,7 +3,6 @@ from addressbook_tester.src.models.contact import Contact
 
 
 def test_add_contact(app):
-    app.session.login("admin", "secret")
     image_path = os.path.join(os.path.dirname(__file__), '../resources/images/grapefruit-slice-332-332.jpg').replace("/", "\\")
     contact1 = Contact("First name",
                        "Middle name",
@@ -35,4 +34,3 @@ def test_add_contact(app):
     app.contact.create_contact(contact1)
     app.contact.return_to_contacts_page()
     app.contact.verify_account_created(contact1)
-    app.session.logout()
