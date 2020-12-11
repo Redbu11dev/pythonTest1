@@ -3,6 +3,7 @@ from addressbook_tester.src.models.contact import Contact
 
 
 def test_add_contact(app):
+    old_contacts = app.contact.get_contact_list()
     image_path = os.path.join(os.path.dirname(__file__), '../resources/images/grapefruit-slice-332-332.jpg').replace("/", "\\")
     contact1 = Contact("First name",
                        "Middle name",
@@ -33,4 +34,9 @@ def test_add_contact(app):
                        )
     app.contact.create(contact1)
     app.contact.return_to_contacts_page()
-    app.contact.verify_account_created(contact1)
+    # app.contact.verify_account_created(contact1)
+    assert app.contact.count() == len(old_contacts) + 1
+    new_contacts = app.contact.get_contact_list()
+    old_contacts.append(contact1)
+    assert sorted(old_contacts, key=Contact.id_or_max) == sorted(new_contacts, key=Contact.id_or_max)
+

@@ -1,6 +1,11 @@
 # type checking/avoiding cyclic imports solution - https://stackoverflow.com/a/39757388
 from __future__ import annotations
+
+from time import sleep
 from typing import TYPE_CHECKING
+
+from addressbook_tester.src.models.contact import Contact
+
 if TYPE_CHECKING:
     from addressbook_tester.src.application import Application
 
@@ -17,6 +22,7 @@ class ContactHelper:
         self.fill_contact_form(contact)
         # click "submit"
         wd.find_element_by_xpath("(//input[@name='submit'])[2]").click()
+        self.contact_cache = None
 
     def fill_contact_form(self, contact):
         wd = self.app.wd
@@ -82,27 +88,59 @@ class ContactHelper:
             wd.find_element_by_link_text("add new").click()
 
     def delete_first_contact(self):
+        self.delete_contact_by_index(0)
+
+    def delete_contact_by_index(self, index):
         wd = self.app.wd
         self.app.open_home_page()
-        self.select_first_contact()
+        self.select_contact_by_index(index)
         wd.find_element_by_xpath("//input[@value='Delete']").click()
         wd.switch_to.alert.accept()
         self.app.open_home_page()
+        self.contact_cache = None
 
     def select_first_contact(self):
+        self.select_contact_by_index(0)
+
+    def select_contact_by_index(self, index):
         wd = self.app.wd
-        wd.find_element_by_name("selected[]").click()
+        wd.find_elements_by_name("selected[]")[index].click()
 
     def modify_first_contact(self, new_contact_data):
+        self.modify_contact_by_index(0, new_contact_data)
+
+    def modify_contact_by_index(self, index, new_contact_data):
         wd = self.app.wd
         self.app.open_home_page()
-        self.select_first_contact()
+        self.select_contact_by_index(index)
         wd.find_element_by_xpath("//img[@alt='Edit']").click()
         self.fill_contact_form(new_contact_data)
         wd.find_element_by_name("update").click()
         self.app.open_home_page()
+        self.contact_cache = None
 
     def count(self):
         wd = self.app.wd
         self.app.open_home_page()
         return len(wd.find_elements_by_name("selected[]"))
+
+    contact_cache = None
+
+    def get_contact_list(self):
+        if self.contact_cache is None:
+            wd = self.app.wd
+            # sleep(10)
+            self.app.open_home_page()
+            self.contact_cache = []
+            for i, element in enumerate(wd.find_elements_by_xpath("//table[@id='maintable']/tbody/tr[@name='entry']")):
+                # last_name = element.find_element_by_xpath("//td[2]").text
+                # first_name = element.find_element_by_xpath("//td[3]").text
+                xpath1 = f"//table[@id='maintable']/tbody/tr[{i+2}]/td[2]"
+                xpath2 = f"//table[@id='maintable']/tbody/tr[{i+2}]/td[3]"
+                last_name = element.find_element_by_xpath(xpath1).text
+                first_name = element.find_element_by_xpath(xpath2).text
+                id = element.find_element_by_name("selected[]").get_attribute("value")
+                self.contact_cache.append(Contact(last_name=last_name, first_name=first_name, id=id))
+            # aa = len(self.contact_cache)
+            # a = self.contact_cache
+        return list(self.contact_cache)
