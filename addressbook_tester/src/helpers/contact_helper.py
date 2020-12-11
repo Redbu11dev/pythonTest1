@@ -129,7 +129,7 @@ class ContactHelper:
     def get_contact_list(self):
         if self.contact_cache is None:
             wd = self.app.wd
-            # sleep(10)
+            sleep(2)
             self.app.open_home_page()
             self.contact_cache = []
             for i, element in enumerate(wd.find_elements_by_xpath("//table[@id='maintable']/tbody/tr[@name='entry']")):
