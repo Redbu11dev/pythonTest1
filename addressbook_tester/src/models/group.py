@@ -4,3 +4,9 @@ class Group:
         self.header = header
         self.footer = footer
         self.id = id
+
+    def __repr__(self):
+        return f"{self.id}:{self.name}"
+
+    def __eq__(self, o) -> bool:
+        return self.id == o.id and self.name == o.name
