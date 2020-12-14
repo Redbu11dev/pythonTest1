@@ -3,10 +3,12 @@ import pytest
 import random
 import string
 
-# Не будут группы создаваться с тем же именем, если есть двойные пробелы, ><, возможно ещё что-то.
-# Не надо тут так делать.
+
 def random_string(prefix, maxlen):
-    symbols = string.ascii_letters+string.digits+string.punctuation+" "*10
+    # Не будут группы создаваться с тем же именем, если есть двойные пробелы, ><, возможно ещё что-то.
+    # Не надо тут так делать.
+    # symbols = string.ascii_letters+string.digits+string.punctuation+" "*10
+    symbols = string.ascii_letters + string.digits + " " * 10
     return prefix + "".join([random.choice(symbols) for i in range(random.randrange(maxlen))])
 
 # testdata = [
@@ -17,9 +19,9 @@ def random_string(prefix, maxlen):
 #     ]
 
 testdata = [Group(name="", header="", footer="")] + [
-        Group(name=random_string("name", 10).replace("/  +/g", " "),
-              header=random_string("header", 20).replace("/  +/g", " "),
-              footer=random_string("footer", 20).replace("/  +/g", " "))
+        Group(name=random_string("name", 10).strip().replace("/  +/g", " "),
+              header=random_string("header", 20).strip().replace("/  +/g", " "),
+              footer=random_string("footer", 20).strip().replace("/  +/g", " "))
         for i in range(5)
     ]
 

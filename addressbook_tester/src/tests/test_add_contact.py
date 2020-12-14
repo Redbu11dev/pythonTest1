@@ -1,6 +1,12 @@
 import os
 from addressbook_tester.src.models.contact import Contact
 
+def random_string(prefix, maxlen):
+    # Не будут группы создаваться с тем же именем, если есть двойные пробелы, ><, возможно ещё что-то.
+    # Не надо тут так делать.
+    # symbols = string.ascii_letters+string.digits+string.punctuation+" "*10
+    symbols = string.ascii_letters + string.digits + " " * 10
+    return prefix + "".join([random.choice(symbols) for i in range(random.randrange(maxlen))])
 
 def test_add_contact(app):
     old_contacts = app.contact.get_contact_list()
