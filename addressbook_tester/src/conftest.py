@@ -1,3 +1,4 @@
+import importlib
 import json
 import pytest
 import os
@@ -37,3 +38,12 @@ def pytest_addoption(parser):
     parser.addoption("--browser", action="store", default="firefox")
     # parser.addoption("--baseUrl", action="store", default="http://localhost/addressbook/")
     parser.addoption("--target", action="store", default="target.json")
+
+def pytest_generate_tests(metafunc):
+    for fixture in metafunc.fixturenames:
+        if fixture.startswith("data_"):
+            testdata = load_from_module(fixture[5:])
+            metafunc.parametrize(fixture, testdata, ids=[str(x) for x in testdata])
+
+def load_from_module(module):
+    return importlib.import_module(f"addressbook_tester.src.data.{module}").testdata
