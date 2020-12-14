@@ -2,7 +2,7 @@ from sys import maxsize
 
 
 class Contact:
-    def __init__(self, first_name="First name", middle_name=None, last_name="Last name", nickname=None, photo_path=None, title=None,
+    def __init__(self, first_name=None, middle_name=None, last_name=None, nickname=None, photo_path=None, title=None,
                  company=None, address=None, home_phone_number=None, mobile_phone_number=None, work_phone_number=None,
                  fax_number=None, email_1=None, email_2=None, email_3=None, homepage=None, birthday_day=None,
                  birthday_month=None, birthday_year=None, anniversary_day=None, anniversary_month=None,
