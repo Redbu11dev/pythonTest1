@@ -13,8 +13,8 @@ def test_add_contact(app):
                        "Title",
                        "Company",
                        "Address",
-                       "2222222",
-                       "88002000600",
+                       "222-22-22",
+                       "8(800)2000600",
                        "2000000",
                        "2111111",
                        "email1@mail.com",
@@ -29,7 +29,7 @@ def test_add_contact(app):
                        "1867",
                        None,  # "group1"
                        "addr2",
-                       "9999999",
+                       "+9999999",
                        "some notes"
                        )
     app.contact.create(contact1)
