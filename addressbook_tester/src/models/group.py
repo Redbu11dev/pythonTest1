@@ -9,7 +9,7 @@ class Group:
         self.id = id
 
     def __repr__(self):
-        return f"{self.id}:{self.name}"
+        return f"{self.id}:{self.name}:{self.header}:{self.footer}"
 
     def __eq__(self, o) -> bool:
         return (self.id is None or o.id is None or self.id == o.id) and self.name == o.name

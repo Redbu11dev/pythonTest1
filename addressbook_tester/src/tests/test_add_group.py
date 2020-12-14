@@ -1,23 +1,33 @@
 from addressbook_tester.src.models.group import Group
+import pytest
+import random
+import string
 
+# Не будут группы создаваться с тем же именем, если есть двойные пробелы, ><, возможно ещё что-то.
+# Не надо тут так делать.
+def random_string(prefix, maxlen):
+    symbols = string.ascii_letters+string.digits+string.punctuation+" "*10
+    return prefix + "".join([random.choice(symbols) for i in range(random.randrange(maxlen))])
 
-def test_add_group(app):
+# testdata = [
+#         Group(name=name, header=header, footer=footer)
+#         for name in ["", random_string("name", 10)]
+#         for header in ["", random_string("header", 20)]
+#         for footer in ["", random_string("footer", 20)]
+#     ]
+
+testdata = [Group(name="", header="", footer="")] + [
+        Group(name=random_string("name", 10).replace("/  +/g", " "),
+              header=random_string("header", 20).replace("/  +/g", " "),
+              footer=random_string("footer", 20).replace("/  +/g", " "))
+        for i in range(5)
+    ]
+
+@pytest.mark.parametrize("group", testdata, ids=[repr(x) for x in testdata])
+def test_add_group(app, group):
     old_groups = app.group.get_group_list()
-    group = Group("group1", "group1_header", "group1_footer")
     app.group.create(group)
     assert app.group.count() == len(old_groups) + 1
     new_groups = app.group.get_group_list()
     old_groups.append(group)
     assert sorted(old_groups, key=Group.id_or_max) == sorted(new_groups, key=Group.id_or_max)
-
-# app.session.logout()
-
-
-# def test_add_empty_group(app):
-#     old_groups = app.group.get_group_list()
-#     group = Group("", "", "")
-#     app.group.create(group)
-#     new_groups = app.group.get_group_list()
-#     assert len(new_groups) == len(old_groups) + 1
-#     old_groups.append(group)
-#     assert sorted(old_groups, key=Group.id_or_max) == sorted(new_groups, key=Group.id_or_max)
