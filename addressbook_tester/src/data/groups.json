@@ -1,38 +1,79 @@
 [
   {
+    "py/object": "addressbook_tester.src.models.group.Group",
     "name": "",
     "header": "",
     "footer": "",
     "id": null
   },
   {
-    "name": "name",
-    "header": "headernbTZcb0N1K  7J0",
-    "footer": "footer2JAg hli  szJL",
+    "py/object": "addressbook_tester.src.models.group.Group",
+    "name": "nameY3vZbxJ5U",
+    "header": "header99sDFMQ",
+    "footer": "footernfJkGPLMck",
     "id": null
   },
   {
-    "name": "name 1cf",
+    "py/object": "addressbook_tester.src.models.group.Group",
+    "name": "namek",
     "header": "header",
-    "footer": "footervrE79AS9VjhtSl OD",
+    "footer": "footerOL6tavpIvkCquNm7a3S",
     "id": null
   },
   {
-    "name": "nameiykQ",
-    "header": "headerDE8b17",
-    "footer": "footerZSQ",
+    "py/object": "addressbook_tester.src.models.group.Group",
+    "name": "name",
+    "header": "header4aC1MniHh97gm",
+    "footer": "footer",
     "id": null
   },
   {
-    "name": "name5n5xq2g W",
-    "header": "headeriF sNX",
-    "footer": "footerTdua",
+    "py/object": "addressbook_tester.src.models.group.Group",
+    "name": "nameTl1",
+    "header": "headerxS Fgn",
+    "footer": "footerlC",
     "id": null
   },
   {
-    "name": "name GpNamkg",
-    "header": "headeru8uHq MaQ1 uW",
-    "footer": "footereDgxnI HW",
+    "py/object": "addressbook_tester.src.models.group.Group",
+    "name": "nameCh8xLmH",
+    "header": "headereiU3V SLlA9",
+    "footer": "footerP4ExZeKflovrzC4N",
+    "id": null
+  },
+  {
+    "py/object": "addressbook_tester.src.models.group.Group",
+    "name": "nameOwqLzc90S",
+    "header": "headerNjajEEjBvu",
+    "footer": "footer4xVk1zv0",
+    "id": null
+  },
+  {
+    "py/object": "addressbook_tester.src.models.group.Group",
+    "name": "nameVleLBjKL5",
+    "header": "headerKOmlFnskh6",
+    "footer": "footermZ7hZOa6ac58KvE3Ak7",
+    "id": null
+  },
+  {
+    "py/object": "addressbook_tester.src.models.group.Group",
+    "name": "nameYtDBPd",
+    "header": "headerx3ymDiacUoGbYOFI",
+    "footer": "footerfzsDVfPMIA5lRNUlSZM",
+    "id": null
+  },
+  {
+    "py/object": "addressbook_tester.src.models.group.Group",
+    "name": "nameS7",
+    "header": "headerH9K0E6e9",
+    "footer": "footerf6",
+    "id": null
+  },
+  {
+    "py/object": "addressbook_tester.src.models.group.Group",
+    "name": "namey0QYr0dXD",
+    "header": "headergmyuqJft",
+    "footer": "footerD61Vj",
     "id": null
   }
 ]
