@@ -100,12 +100,26 @@ class ContactHelper:
         self.app.open_home_page()
         self.contact_cache = None
 
+    def delete_contact_by_id(self, id):
+        wd = self.app.wd
+        self.app.open_home_page()
+        self.select_contact_by_id(id)
+        wd.find_element_by_xpath("//input[@value='Delete']").click()
+        wd.switch_to.alert.accept()
+        self.app.open_home_page()
+        self.contact_cache = None
+
     def select_first_contact(self):
         self.select_contact_by_index(0)
 
     def select_contact_by_index(self, index):
         wd = self.app.wd
         wd.find_elements_by_name("selected[]")[index].click()
+
+    def select_contact_by_id(self, id):
+        wd = self.app.wd
+        #wd.find_elements_by_name("selected[]")[index].click()
+        wd.find_element_by_css_selector(f"input[value='{id}']").click()
 
     def modify_first_contact(self, new_contact_data):
         self.modify_contact_by_index(0, new_contact_data)
@@ -116,6 +130,17 @@ class ContactHelper:
         # self.select_contact_by_index(index)
         # wd.find_element_by_xpath("//img[@alt='Edit']").click()
         self.open_contact_to_edit_by_index(index)
+        self.fill_contact_form(new_contact_data)
+        wd.find_element_by_name("update").click()
+        self.app.open_home_page()
+        self.contact_cache = None
+
+    def modify_contact_by_id(self, id, new_contact_data):
+        wd = self.app.wd
+        self.app.open_home_page()
+        # self.select_contact_by_index(index)
+        # wd.find_element_by_xpath("//img[@alt='Edit']").click()
+        self.open_contact_to_edit_by_id(id)
         self.fill_contact_form(new_contact_data)
         wd.find_element_by_name("update").click()
         self.app.open_home_page()
@@ -174,12 +199,28 @@ class ContactHelper:
         cell = row.find_elements_by_tag_name("td")[7]
         cell.find_element_by_tag_name("a").click()
 
+    def open_contact_to_edit_by_id(self, id):
+        wd = self.app.wd
+        self.app.open_home_page()
+        # row = wd.find_elements_by_name("entry")[index]
+        # cell = row.find_elements_by_tag_name("td")[7]
+        # cell.find_element_by_tag_name("a").click()
+        wd.find_element_by_css_selector(f"a[href='edit.php?id={id}']").click()
+
     def open_contact_to_view_by_index(self, index):
         wd = self.app.wd
         self.app.open_home_page()
         row = wd.find_elements_by_name("entry")[index]
         cell = row.find_elements_by_tag_name("td")[6]
         cell.find_element_by_tag_name("a").click()
+
+    def open_contact_to_view_by_id(self, id):
+        wd = self.app.wd
+        self.app.open_home_page()
+        # row = wd.find_elements_by_name("entry")[index]
+        # cell = row.find_elements_by_tag_name("td")[6]
+        # cell.find_element_by_tag_name("a").click()
+        wd.find_element_by_css_selector(f"a[href='view.php?id={id}']").click()
 
     def get_contact_info_from_edit_page(self, index):
         wd = self.app.wd

@@ -57,15 +57,29 @@ from addressbook_tester.src.models.contact import Contact
 #     old_contacts.append(contact1)
 #     assert sorted(old_contacts, key=Contact.id_or_max) == sorted(new_contacts, key=Contact.id_or_max)
 
-def test_add_contact(app, json_contacts):
+# def test_add_contact(app, json_contacts):
+#     contact1 = json_contacts
+#     old_contacts = app.contact.get_contact_list()
+#     # image_path = os.path.join(os.path.dirname(__file__), '../resources/images/grapefruit-slice-332-332.jpg').replace("/", "\\")
+#     app.contact.create(contact1)
+#     app.contact.return_to_contacts_page()
+#     # app.contact.verify_account_created(contact1)
+#     assert app.contact.count() == len(old_contacts) + 1
+#     new_contacts = app.contact.get_contact_list()
+#     old_contacts.append(contact1)
+#     assert sorted(old_contacts, key=Contact.id_or_max) == sorted(new_contacts, key=Contact.id_or_max)
+
+def test_add_contact(app, json_contacts, db, check_ui):
     contact1 = json_contacts
-    old_contacts = app.contact.get_contact_list()
+    old_contacts = db.get_contact_list()
     # image_path = os.path.join(os.path.dirname(__file__), '../resources/images/grapefruit-slice-332-332.jpg').replace("/", "\\")
     app.contact.create(contact1)
     app.contact.return_to_contacts_page()
     # app.contact.verify_account_created(contact1)
     assert app.contact.count() == len(old_contacts) + 1
-    new_contacts = app.contact.get_contact_list()
+    new_contacts = db.get_contact_list()
     old_contacts.append(contact1)
     assert sorted(old_contacts, key=Contact.id_or_max) == sorted(new_contacts, key=Contact.id_or_max)
+    if check_ui:
+        assert sorted(new_contacts, key=Contact.id_or_max) == sorted(app.contact.get_contact_list(), key=Contact.id_or_max)
 
