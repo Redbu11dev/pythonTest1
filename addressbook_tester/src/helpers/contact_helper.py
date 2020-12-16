@@ -162,6 +162,20 @@ class ContactHelper:
         self.app.open_home_page()
         self.contact_cache = None
 
+    def remove_contact_from_group(self, contact_id, group_id):
+        wd = self.app.wd
+        self.app.open_home_page()
+        self.select_contact_by_id(contact_id)
+        wd.find_element_by_name("group").click()
+        Select(wd.find_element_by_name("group")).select_by_value(group_id)
+        wd.find_element_by_name("group").click()
+        self.select_contact_by_id(contact_id)
+        wd.find_element_by_name("remove").click()
+        self.app.open_home_page()
+        wd.find_element_by_name("group").click()
+        Select(wd.find_element_by_name("group")).select_by_visible_text("[all]")
+        wd.find_element_by_name("group").click()
+        self.contact_cache = None
 
     contact_cache = None
 
