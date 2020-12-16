@@ -14,5 +14,4 @@ def test_remove_contact_from_group(app, db, orm_db):
         if new_contact.id == contact.id:
             raise AssertionError("contact still exists in the group")
     else:
-        pass #all good
-
+        pass  # all good
