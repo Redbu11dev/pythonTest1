@@ -151,6 +151,18 @@ class ContactHelper:
         self.app.open_home_page()
         return len(wd.find_elements_by_name("selected[]"))
 
+    def add_contact_to_group(self, id, group):
+        wd = self.app.wd
+        self.app.open_home_page()
+        self.select_contact_by_id(id)
+        wd.find_element_by_name("to_group").click()
+        Select(wd.find_element_by_name("to_group")).select_by_value(group.id)
+        wd.find_element_by_name("to_group").click()
+        wd.find_element_by_name("add").click()
+        self.app.open_home_page()
+        self.contact_cache = None
+
+
     contact_cache = None
 
     # def get_contact_list(self):
