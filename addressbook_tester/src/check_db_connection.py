@@ -1,11 +1,24 @@
-from addressbook_tester.src.helpers.db import DbFixture
+# from addressbook_tester.src.helpers.db import DbFixture
+#
+# db = DbFixture(host="127.0.0.1", name="addressbook", user="root", password="")
+#
+# try:
+#     contacts = db.get_contact_list()
+#     for contact in contacts:
+#         print(contact)
+#     print(len(contacts))
+# finally:
+#     db.destroy()
 
-db = DbFixture(host="127.0.0.1", name="addressbook", user="root", password="")
+from addressbook_tester.src.helpers.orm import ORMFixture
+from addressbook_tester.src.models.group import Group
+
+db = ORMFixture(host="127.0.0.1", name="addressbook", user="root", password="")
 
 try:
-    contacts = db.get_contact_list()
-    for contact in contacts:
-        print(contact)
-    print(len(contacts))
+    l = db.get_contact_list()
+    for item in l:
+        print(item)
+    print(len(l))
 finally:
-    db.destroy()
+    pass
