@@ -1,4 +1,4 @@
-from addressbook_tester.src.db import DbFixture
+from addressbook_tester.src.helpers.db import DbFixture
 
 db = DbFixture(host="127.0.0.1", name="addressbook", user="root", password="")
 

@@ -5,7 +5,7 @@ import pytest
 import os
 
 from addressbook_tester.src.application import Application
-from addressbook_tester.src.db import DbFixture
+from addressbook_tester.src.helpers.db import DbFixture
 
 fixture = None
 target = None
